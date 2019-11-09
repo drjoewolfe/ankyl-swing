@@ -1,9 +1,6 @@
 package com.jwolfe.ankyl.swing;
 
 import javax.swing.*;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.TreeCellRenderer;
-import javax.swing.tree.TreePath;
 import java.awt.*;
 import java.util.function.Function;
 
@@ -20,19 +17,22 @@ public class CheckBoxWithIconListCellRenderer extends JPanel implements ListCell
 
     public CheckBoxWithIconListCellRenderer() {
         super();
-        this.setLayout(new BorderLayout());
+//        this.setLayout(new GridLayout());
 
         checkBox = new JCheckBox();
         label = new JLabel();
 
-        panel = new JPanel();
-        panel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        panel.add(checkBox);
-        panel.add(label);
+//        panel = new JPanel();
+//        panel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
+        setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
+//        panel.add(checkBox);
+//        panel.add(label);
+        add(checkBox);
+        add(label);
         checkBox.setBackground(UIManager.getColor("Tree.textBackground"));
-        panel.setBackground(UIManager.getColor("Tree.textBackground"));
+        //panel.setBackground(UIManager.getColor("Tree.textBackground"));
 
-        add(panel, BorderLayout.CENTER);
+        //add(panel, BorderLayout.CENTER);
         setOpaque(false);
     }
 

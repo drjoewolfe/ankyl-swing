@@ -3,9 +3,8 @@ package com.jwolfe.ankyl.swing;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.*;
+import java.util.List;
 import java.util.function.Function;
 
 import javax.swing.*;
@@ -380,5 +379,31 @@ public class JCheckBoxTree extends JTree {
         }
 
         return checkedLeafCount;
+    }
+
+    public List<TaggedMutableTreeNode> getCheckedLeaves(TaggedMutableTreeNode root) {
+        List<TaggedMutableTreeNode> checkedLeaves = new ArrayList<>();
+        loadCheckedLeaves(root, checkedLeaves);
+
+        return checkedLeaves;
+    }
+
+    private void loadCheckedLeaves(TaggedMutableTreeNode root, List<TaggedMutableTreeNode> checkedLeaves) {
+        if(root.isLeaf()) {
+            TreeNode[] path = root.getPath();
+            TreePath tp = new TreePath(path);
+            var checkState = nodesCheckingState.get(tp);
+
+            if(checkState.isSelected) {
+                checkedLeaves.add(root);
+            }
+        }
+        else {
+            var children = root.children();
+            while (children.hasMoreElements()) {
+                var childNode = children.nextElement();
+                loadCheckedLeaves((TaggedMutableTreeNode) childNode, checkedLeaves);
+            }
+        }
     }
 }
