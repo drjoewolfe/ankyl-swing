@@ -21,7 +21,7 @@ public class UserInteractionDialog  extends JDialog implements ActionListener {
         setTitle("User Intervention Required");
 
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(2,1,5,5));
+        panel.setLayout(new GridLayout(2, 1, 5, 5));
 
         JTextArea messageArea = new JTextArea(message);
         messageArea.setWrapStyleWord(true);

@@ -21,13 +21,13 @@ public class JTextAreaOutputStream extends OutputStream {
     @Override
     public void write(int b) throws IOException {
         // redirects data to the text area
-        textArea.append(String.valueOf((char)b));
+        textArea.append(String.valueOf((char) b));
         // scrolls the text area to the end of data
         textArea.setCaretPosition(textArea.getDocument().getLength());
     }
 
     public void replaceConsole() {
-        if(consoleReplaced) {
+        if (consoleReplaced) {
             return;
         }
 
@@ -42,7 +42,7 @@ public class JTextAreaOutputStream extends OutputStream {
     }
 
     public void restoreConsole() {
-        if(!consoleReplaced) {
+        if (!consoleReplaced) {
             return;
         }
 

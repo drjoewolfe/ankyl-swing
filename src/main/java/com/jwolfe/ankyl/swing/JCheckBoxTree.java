@@ -74,6 +74,7 @@ public class JCheckBoxTree extends JTree {
     public void addCheckChangeEventListener(CheckChangeEventListener listener) {
         listenerList.add(CheckChangeEventListener.class, listener);
     }
+
     public void removeCheckChangeEventListener(CheckChangeEventListener listener) {
         listenerList.remove(CheckChangeEventListener.class, listener);
     }
@@ -107,7 +108,7 @@ public class JCheckBoxTree extends JTree {
     private void resetCheckingState() {
         nodesCheckingState = new HashMap<TreePath, CheckedNode>();
         checkedPaths = new HashSet<TreePath>();
-        if(! (getModel().getRoot() instanceof TaggedMutableTreeNode)) {
+        if (!(getModel().getRoot() instanceof TaggedMutableTreeNode)) {
             return;
         }
 
@@ -125,7 +126,7 @@ public class JCheckBoxTree extends JTree {
         TreePath tp = new TreePath(path);
         CheckedNode cn = new CheckedNode(false, node.getChildCount() > 0, false);
         nodesCheckingState.put(tp, cn);
-        for (int i = 0 ; i < node.getChildCount() ; i++) {
+        for (int i = 0; i < node.getChildCount(); i++) {
             addSubtreeToCheckingStateTracking((TaggedMutableTreeNode) tp.pathByAddingChild(node.getChildAt(i)).getLastPathComponent());
         }
     }
@@ -207,7 +208,7 @@ public class JCheckBoxTree extends JTree {
         public Component getTreeCellRendererComponent(JTree tree, Object value,
                                                       boolean selected, boolean expanded, boolean leaf, int row,
                                                       boolean hasFocus) {
-            if(!(value instanceof TaggedMutableTreeNode)) {
+            if (!(value instanceof TaggedMutableTreeNode)) {
                 return this;
             }
 
@@ -219,14 +220,13 @@ public class JCheckBoxTree extends JTree {
                 return this;
             }
             checkBox.setSelected(cn.isSelected);
-            checkBox.setOpaque(cn.isSelected && cn.hasChildren && ! cn.allChildrenSelected);
+            checkBox.setOpaque(cn.isSelected && cn.hasChildren && !cn.allChildrenSelected);
 
-            if(iconProvider != null) {
+            if (iconProvider != null) {
                 var icon = iconProvider.apply(node);
-                if(icon != null) {
+                if (icon != null) {
                     nameLabel.setIcon(icon);
-                }
-                else {
+                } else {
                     nameLabel.setIcon(null);
                 }
             }
@@ -234,23 +234,21 @@ public class JCheckBoxTree extends JTree {
             var label = obj.toString();
             nameLabel.setText(label);
 
-            if(showCounts && !node.isLeaf()) {
+            if (showCounts && !node.isLeaf()) {
                 String countString = null;
-                if(tree instanceof JCheckBoxTree) {
+                if (tree instanceof JCheckBoxTree) {
                     var checkBoxTree = (JCheckBoxTree) tree;
                     countString = "(" +
                             checkBoxTree.getCheckedLeafCount((node)) +
                             " / " +
                             node.getLeafCount() + ")";
-                }
-                else {
+                } else {
                     countString = "(" +
                             node.getLeafCount() + ")";
                 }
 
                 countLabel.setText(countString);
-            }
-            else {
+            } else {
                 countLabel.setText("");
             }
 
@@ -271,13 +269,17 @@ public class JCheckBoxTree extends JTree {
         // Overriding selection model by an empty one
         DefaultTreeSelectionModel dtsm = new DefaultTreeSelectionModel() {
             private static final long serialVersionUID = -8190634240451667286L;
+
             // Totally disabling the selection mechanism
             public void setSelectionPath(TreePath path) {
             }
+
             public void addSelectionPath(TreePath path) {
             }
+
             public void removeSelectionPath(TreePath path) {
             }
+
             public void setSelectionPaths(TreePath[] pPaths) {
             }
         };
@@ -288,7 +290,7 @@ public class JCheckBoxTree extends JTree {
                 if (tp == null) {
                     return;
                 }
-                boolean checkMode = ! nodesCheckingState.get(tp).isSelected;
+                boolean checkMode = !nodesCheckingState.get(tp).isSelected;
                 checkSubTree(tp, checkMode);
                 updatePredecessorsWithCheckMode(tp, checkMode);
                 // Firing the check change event
@@ -296,12 +298,16 @@ public class JCheckBoxTree extends JTree {
                 // Repainting tree after the data structures were updated
                 selfPointer.repaint();
             }
+
             public void mouseEntered(MouseEvent arg0) {
             }
+
             public void mouseExited(MouseEvent arg0) {
             }
+
             public void mousePressed(MouseEvent arg0) {
             }
+
             public void mouseReleased(MouseEvent arg0) {
             }
         });
@@ -319,12 +325,12 @@ public class JCheckBoxTree extends JTree {
         TaggedMutableTreeNode parentNode = (TaggedMutableTreeNode) parentPath.getLastPathComponent();
         parentCheckedNode.allChildrenSelected = true;
         parentCheckedNode.isSelected = false;
-        for (int i = 0 ; i < parentNode.getChildCount() ; i++) {
+        for (int i = 0; i < parentNode.getChildCount(); i++) {
             TreePath childPath = parentPath.pathByAddingChild(parentNode.getChildAt(i));
             CheckedNode childCheckedNode = nodesCheckingState.get(childPath);
             // It is enough that even one subtree is not fully selected
             // to determine that the parent is not fully selected
-            if (! childCheckedNode.allChildrenSelected) {
+            if (!childCheckedNode.allChildrenSelected) {
                 parentCheckedNode.allChildrenSelected = false;
             }
             // If at least one child is selected, selecting also the parent
@@ -346,7 +352,7 @@ public class JCheckBoxTree extends JTree {
         CheckedNode cn = nodesCheckingState.get(tp);
         cn.isSelected = check;
         TaggedMutableTreeNode node = (TaggedMutableTreeNode) tp.getLastPathComponent();
-        for (int i = 0 ; i < node.getChildCount() ; i++) {
+        for (int i = 0; i < node.getChildCount(); i++) {
             checkSubTree(tp.pathByAddingChild(node.getChildAt(i)), check);
         }
         cn.allChildrenSelected = check;
@@ -358,22 +364,21 @@ public class JCheckBoxTree extends JTree {
     }
 
     public int getCheckedLeafCount(TaggedMutableTreeNode root) {
-        if(root.isLeaf()) {
+        if (root.isLeaf()) {
             TreeNode[] path = root.getPath();
             TreePath tp = new TreePath(path);
             var checkState = nodesCheckingState.get(tp);
 
-            if(checkState.isSelected) {
+            if (checkState.isSelected) {
                 return 1;
-            }
-            else {
+            } else {
                 return 0;
             }
         }
 
         var checkedLeafCount = 0;
         var children = root.children();
-        while(children.hasMoreElements()) {
+        while (children.hasMoreElements()) {
             var childNode = children.nextElement();
             checkedLeafCount += getCheckedLeafCount((TaggedMutableTreeNode) childNode);
         }
@@ -389,16 +394,15 @@ public class JCheckBoxTree extends JTree {
     }
 
     private void loadCheckedLeaves(TaggedMutableTreeNode root, List<TaggedMutableTreeNode> checkedLeaves) {
-        if(root.isLeaf()) {
+        if (root.isLeaf()) {
             TreeNode[] path = root.getPath();
             TreePath tp = new TreePath(path);
             var checkState = nodesCheckingState.get(tp);
 
-            if(checkState.isSelected) {
+            if (checkState.isSelected) {
                 checkedLeaves.add(root);
             }
-        }
-        else {
+        } else {
             var children = root.children();
             while (children.hasMoreElements()) {
                 var childNode = children.nextElement();
