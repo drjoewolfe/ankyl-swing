@@ -47,12 +47,11 @@ public class CheckBoxWithIconListCellRenderer extends JPanel implements ListCell
         checkBox.setBackground(list.getBackground());
         checkBox.setForeground(list.getForeground());
 
-        if(iconProvider != null) {
+        if (iconProvider != null) {
             var icon = iconProvider.apply(item);
-            if(icon != null) {
+            if (icon != null) {
                 label.setIcon(icon);
-            }
-            else {
+            } else {
                 label.setIcon(null);
             }
         }
