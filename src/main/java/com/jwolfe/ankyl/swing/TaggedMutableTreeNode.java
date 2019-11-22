@@ -25,11 +25,11 @@ public class TaggedMutableTreeNode extends DefaultMutableTreeNode {
     public TaggedMutableTreeNode() {
     }
 
-    public TaggedMutableTreeNode(Object userObject) {
+    public TaggedMutableTreeNode(final Object userObject) {
         super(userObject);
     }
 
-    public TaggedMutableTreeNode(Object userObject, boolean allowsChildren) {
+    public TaggedMutableTreeNode(final Object userObject, final boolean allowsChildren) {
         super(userObject, allowsChildren);
     }
 }
