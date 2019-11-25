@@ -13,7 +13,7 @@ public class UserInteractionDialog  extends JDialog implements ActionListener {
 
     }
 
-    public void show(String message) {
+    public void show(final String message) {
         syncMessage = message;
         setModal(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);

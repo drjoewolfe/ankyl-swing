@@ -10,7 +10,7 @@ public class TaggedMutableTreeNode extends DefaultMutableTreeNode {
         return tag;
     }
 
-    public void setTag(Object tag) {
+    public void setTag(final Object tag) {
         this.tag = tag;
     }
 
@@ -18,7 +18,7 @@ public class TaggedMutableTreeNode extends DefaultMutableTreeNode {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(final String description) {
         this.description = description;
     }
 
