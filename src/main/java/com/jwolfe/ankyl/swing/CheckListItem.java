@@ -6,16 +6,16 @@ public class CheckListItem {
     private String tag;
     private boolean isSelected = false;
 
-    public CheckListItem(String label) {
+    public CheckListItem(final String label) {
         this.label = label;
     }
 
-    public CheckListItem(String label, boolean isSelected) {
+    public CheckListItem(final String label, final boolean isSelected) {
         this(label);
         this.isSelected = isSelected;
     }
 
-    public CheckListItem(String label, String tag, boolean isSelected) {
+    public CheckListItem(final String label, final String tag, final boolean isSelected) {
         this(label, isSelected);
         this.tag = tag;
     }
@@ -24,7 +24,7 @@ public class CheckListItem {
         return label;
     }
 
-    public void setLabel(String label) {
+    public void setLabel(final String label) {
         this.label = label;
     }
 
@@ -32,7 +32,7 @@ public class CheckListItem {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(final String description) {
         this.description = description;
     }
 
@@ -40,7 +40,7 @@ public class CheckListItem {
         return tag;
     }
 
-    public void setTag(String tag) {
+    public void setTag(final String tag) {
         this.tag = tag;
     }
 
@@ -48,7 +48,7 @@ public class CheckListItem {
         return isSelected;
     }
 
-    public void setSelected(boolean isSelected) {
+    public void setSelected(final boolean isSelected) {
         this.isSelected = isSelected;
     }
 

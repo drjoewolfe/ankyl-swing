@@ -36,8 +36,8 @@ public class CheckBoxWithIconListCellRenderer extends JPanel implements ListCell
         setOpaque(false);
     }
 
-    public Component getListCellRendererComponent(JList list, Object value,
-                                                  int index, boolean isSelected, boolean hasFocus) {
+    public Component getListCellRendererComponent(final JList list, final Object value,
+                                                  final int index, final boolean isSelected, final boolean hasFocus) {
 
         CheckListItem item = (CheckListItem) value;
 
