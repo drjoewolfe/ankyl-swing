@@ -1,6 +1,6 @@
 package com.jwolfe.ankyl.swing;
 
-import javax.swing.*;
+import javax.swing.JTextArea;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;

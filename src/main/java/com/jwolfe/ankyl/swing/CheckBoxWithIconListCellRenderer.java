@@ -1,7 +1,14 @@
 package com.jwolfe.ankyl.swing;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.ListCellRenderer;
+import javax.swing.UIManager;
+import java.awt.Component;
+import java.awt.FlowLayout;
 import java.util.function.Function;
 
 public class CheckBoxWithIconListCellRenderer extends JPanel implements ListCellRenderer {

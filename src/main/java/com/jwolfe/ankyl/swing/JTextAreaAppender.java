@@ -9,7 +9,7 @@ import org.apache.logging.log4j.core.config.plugins.PluginAttribute;
 import org.apache.logging.log4j.core.config.plugins.PluginElement;
 import org.apache.logging.log4j.core.config.plugins.PluginFactory;
 
-import javax.swing.*;
+import javax.swing.JTextArea;
 import java.util.ArrayList;
 
 import static javax.swing.SwingUtilities.invokeLater;
@@ -22,18 +22,18 @@ public class JTextAreaAppender extends AbstractAppender {
 
     private int maxLines;
 
-    private JTextAreaAppender(String name, Layout<?> layout, Filter filter, int maxLines, boolean ignoreExceptions) {
+    private JTextAreaAppender(final String name, final Layout<?> layout, final Filter filter, final int maxLines, final boolean ignoreExceptions) {
         super(name, filter, layout, ignoreExceptions, EMPTY_ARRAY);
         this.maxLines = maxLines;
     }
 
     @SuppressWarnings("unused")
     @PluginFactory
-    public static JTextAreaAppender createAppender(@PluginAttribute("name") String name,
-                                                   @PluginAttribute("maxLines") int maxLines,
-                                                   @PluginAttribute("ignoreExceptions") boolean ignoreExceptions,
+    public static JTextAreaAppender createAppender(final @PluginAttribute("name") String name,
+                                                   final @PluginAttribute("maxLines") int maxLines,
+                                                   final @PluginAttribute("ignoreExceptions") boolean ignoreExceptions,
                                                    @PluginElement("Layout") Layout<?> layout,
-                                                   @PluginElement("Filters") Filter filter) {
+                                                   final @PluginElement("Filters") Filter filter) {
         if (name == null) {
             LOGGER.error("No name provided for JTextAreaAppender");
             return null;
@@ -50,12 +50,11 @@ public class JTextAreaAppender extends AbstractAppender {
     }
 
     @Override
-    public void append(LogEvent event) {
+    public void append(final LogEvent event) {
         String message = new String(this.getLayout().toByteArray(event));
 
         try {
-            invokeLater(() ->
-            {
+            invokeLater(() -> {
                 for (JTextArea textArea : textAreas) {
                     try {
                         if (textArea != null) {
