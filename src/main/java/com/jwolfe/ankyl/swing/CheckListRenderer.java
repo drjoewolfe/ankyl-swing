@@ -1,9 +1,10 @@
 package com.jwolfe.ankyl.swing;
 
-import com.jwolfe.ankyl.swing.CheckListItem;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JCheckBox;
+import javax.swing.JList;
+import javax.swing.ListCellRenderer;
+import java.awt.Component;
 
 public class CheckListRenderer extends JCheckBox implements ListCellRenderer {
     public Component getListCellRendererComponent(final JList list, final Object value,
