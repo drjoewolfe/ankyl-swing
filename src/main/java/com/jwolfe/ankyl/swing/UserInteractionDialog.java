@@ -6,8 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class UserInteractionDialog  extends JDialog implements ActionListener {
-    JButton button;
-    String syncMessage;
+    private JButton button;
+    private String syncMessage;
 
     public UserInteractionDialog() {
 
