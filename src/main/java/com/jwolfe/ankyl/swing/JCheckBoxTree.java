@@ -3,12 +3,14 @@ package com.jwolfe.ankyl.swing;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.lang.reflect.Method;
 import java.util.*;
 import java.util.List;
 import java.util.function.Function;
 
 import javax.swing.*;
 import javax.swing.event.EventListenerList;
+import javax.swing.plaf.basic.BasicTreeUI;
 import javax.swing.tree.DefaultTreeSelectionModel;
 import javax.swing.tree.TreeCellRenderer;
 import javax.swing.tree.TreeModel;
@@ -135,6 +137,7 @@ public class JCheckBoxTree extends JTree {
     // It decides how to show the nodes due to the checking-mechanism
     public class CheckBoxTreeCellRenderer extends JPanel implements TreeCellRenderer {
         private static final long serialVersionUID = -7341833835878991719L;
+
         JCheckBox checkBox;
         JPanel panel;
         JLabel nameLabel;
@@ -148,10 +151,15 @@ public class JCheckBoxTree extends JTree {
         }
 
         private void initializeControls() {
+            prepareRenderer();
+        }
+
+        private void prepareRenderer() {
             this.removeAll();
 
             // this.setLayout(new BorderLayout());
             this.setLayout(new BorderLayout());
+            // this.setBorder(BorderFactory.createRaisedBevelBorder());
 
             checkBox = new JCheckBox();
             nameLabel = new JLabel();
@@ -238,13 +246,13 @@ public class JCheckBoxTree extends JTree {
                 String countString = null;
                 if (tree instanceof JCheckBoxTree) {
                     var checkBoxTree = (JCheckBoxTree) tree;
-                    countString = "(" +
-                            checkBoxTree.getCheckedLeafCount((node)) +
-                            " / " +
-                            node.getLeafCount() + ")";
+                    countString = "("
+                            + checkBoxTree.getCheckedLeafCount((node))
+                            + " / "
+                            + node.getLeafCount() + ")";
                 } else {
-                    countString = "(" +
-                            node.getLeafCount() + ")";
+                    countString = "("
+                            + node.getLeafCount() + ")";
                 }
 
                 countLabel.setText(countString);
@@ -408,6 +416,19 @@ public class JCheckBoxTree extends JTree {
                 var childNode = children.nextElement();
                 loadCheckedLeaves((TaggedMutableTreeNode) childNode, checkedLeaves);
             }
+        }
+    }
+
+
+    public void recalulateNodeWidths() {
+        // Make sure tree recalculates width of the nodes
+        BasicTreeUI ui = (BasicTreeUI) getUI();
+        try {
+            Method method = BasicTreeUI.class.getDeclaredMethod("configureLayoutCache");
+            ((Method) method).setAccessible(true);
+            method.invoke(ui);
+        } catch (Exception e1) {
+            e1.printStackTrace();
         }
     }
 }
