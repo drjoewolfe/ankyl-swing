@@ -3,7 +3,7 @@ package com.jwolfe.ankyl.swing;
 public class CheckListItem {
     private String label;
     private String description;
-    private String tag;
+    private Object tag;
     private boolean isSelected = false;
 
     public CheckListItem(final String label) {
@@ -15,7 +15,7 @@ public class CheckListItem {
         this.isSelected = isSelected;
     }
 
-    public CheckListItem(final String label, final String tag, final boolean isSelected) {
+    public CheckListItem(final String label, final Object tag, final boolean isSelected) {
         this(label, isSelected);
         this.tag = tag;
     }
@@ -36,11 +36,11 @@ public class CheckListItem {
         this.description = description;
     }
 
-    public String getTag() {
+    public Object getTag() {
         return tag;
     }
 
-    public void setTag(final String tag) {
+    public void setTag(final Object tag) {
         this.tag = tag;
     }
 
