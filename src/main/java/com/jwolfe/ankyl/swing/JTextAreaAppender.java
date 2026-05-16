@@ -4,6 +4,7 @@ import org.apache.logging.log4j.core.Filter;
 import org.apache.logging.log4j.core.Layout;
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.appender.AbstractAppender;
+import org.apache.logging.log4j.core.config.Property;
 import org.apache.logging.log4j.core.config.plugins.Plugin;
 import org.apache.logging.log4j.core.config.plugins.PluginAttribute;
 import org.apache.logging.log4j.core.config.plugins.PluginElement;
@@ -23,7 +24,7 @@ public class JTextAreaAppender extends AbstractAppender {
     private int maxLines;
 
     private JTextAreaAppender(final String name, final Layout<?> layout, final Filter filter, final int maxLines, final boolean ignoreExceptions) {
-        super(name, filter, layout, ignoreExceptions, EMPTY_ARRAY);
+        super(name, filter, layout, ignoreExceptions, Property.EMPTY_ARRAY);
         this.maxLines = maxLines;
     }
 
